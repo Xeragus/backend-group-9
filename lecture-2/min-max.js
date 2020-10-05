@@ -5,7 +5,7 @@ let highestCandle = 0
 candles.forEach(candle => {
   if (candle > highestCandle) highestCandle = candle
 })
-
+console.log(highestCandle)
 // iteracija 1
 // candle = 4
 // dali 4 > 0, da pogolemo e znaci highestCandle sega kje ima vrednost 4
