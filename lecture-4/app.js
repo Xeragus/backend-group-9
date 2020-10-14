@@ -1,0 +1,12 @@
+const numbers = require('./numbers')
+const domesticTotalCalculator = require('../lecture-3/domesticTotalCalculator')
+const receiptsGenerator = require('../lecture-3/receiptsGenerator')
+const util = require('util')
+// console.log(numbers)
+
+// 1. file-based modules (domasni)
+// 2. core modules (doagjaat zaedno so nodejs instalacija)
+// 3. external modules (ne doagjaat so nodejs, ama moze da gi instalirate preku npm)
+// console.log(domesticTotalCalculator.calculateDomesticTotal(receiptsGenerator.receiptsToday))
+// console.log(domesticTotalCalculator.calculateDomesticTotal(receiptsGenerator.receiptsYesterday))
+console.log(domesticTotalCalculator(receiptsGenerator.receiptsToday))

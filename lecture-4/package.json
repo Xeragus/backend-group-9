@@ -1,0 +1,15 @@
+{
+  "name": "lecture-4",
+  "version": "1.0.0",
+  "description": "This is the package.json for lecture 4",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Boban Sugareski",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "moment": "^2.29.1"
+  }
+}

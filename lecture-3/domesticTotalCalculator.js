@@ -14,6 +14,8 @@ function calculateDomesticTotal(receipts) {
   return calculatedDomesticTotal
 }
 
-module.exports = {
-  calculateDomesticTotal: calculateDomesticTotal
-}
+// module.exports = {
+//   calculateDomesticTotal: calculateDomesticTotal
+// }
+
+module.exports = calculateDomesticTotal
