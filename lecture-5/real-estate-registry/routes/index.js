@@ -1,12 +1,10 @@
 var express = require('express');
 var router = express.Router();
+const realEstateProperties = require('../real-estate-data')
 
-router
-  .get('/', (req, res) => {
-    res.render('index', { title: 'Generacija 9', subtitle: 'hehehe hiuhiuhi' })
-  })
-  .get('/people', (req, res) => {
-    res.render('people', { title: 'People', name: 'Boban Sugareski' })
-  })
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Real Estate Properties', realEstatePropertiesXYZ: realEstateProperties });
+});
+
 
 module.exports = router;
