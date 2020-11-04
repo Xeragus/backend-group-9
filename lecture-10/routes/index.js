@@ -2,18 +2,20 @@ var express = require('express');
 var router = express.Router();
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
+const passport = require('passport')
+const { ensureAuthenticated, redirectAuthenticated } = require('../config/auth')
 
 router
-      .get('/', (req, res) => {
+      .get('/', ensureAuthenticated, (req, res) => {
         res.render('index', { title: 'Express' });
       })
-      .get('/add', (req, res) => {
+      .get('/add', ensureAuthenticated, (req, res) => {
         res.render('add');
       })
-      .get('/login', (req, res) => {
+      .get('/login', redirectAuthenticated, (req, res) => {
         res.render('login')
       })
-      .get('/register', (req, res) => {
+      .get('/register', redirectAuthenticated, (req, res) => {
         res.render('register')
       })
       .post('/register', async (req, res) => {
@@ -39,6 +41,7 @@ router
 
               user.password = hash
               await user.save()
+              req.flash('success_message', 'You are now registered. Please log in.')
               res.redirect('/login')
             })
           })
@@ -47,5 +50,16 @@ router
           res.render('register', { ...req.body, error: error.message })
         }
       })
-
+      .post('/login', (req, res, next) => {
+        passport.authenticate('local', {
+          successRedirect: '/',
+          failureRedirect: '/login',
+          failureFlash: true
+        })(req, res, next)
+      })
+      .get('/logout', (req, res) => {
+        req.logout()
+        req.flash('success_message', 'You are logged out')
+        res.redirect('/login')
+      })
 module.exports = router;

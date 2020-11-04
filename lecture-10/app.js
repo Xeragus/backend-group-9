@@ -7,12 +7,19 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const mongoose = require('mongoose')
 const layouts = require('express-ejs-layouts')
+const session = require('express-session')
+const passport = require('passport')
+const flash = require('connect-flash')
 
 var app = express();
 
+const mongoURI = require('./config/keys').MongoURI
+// db connection
 mongoose.connect(
+  mongoURI,
   { useNewUrlParser: true, useUnifiedTopology: true }
 )
+require('./config/passport')(passport)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,6 +31,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 }
+  })
+)
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(flash())
+app.use((req, res, next) => {
+  res.locals.success_message = req.flash('success_message')
+  res.locals.error_message = req.flash('error')
+  next()
+})
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
