@@ -1,22 +1,22 @@
 <%- include('partials/nav') %>
 <div style="max-width: 500px; margin: auto;" class="mt-5">
-  <form>
+  <%- include('partials/notifications') %>
+  <form action="/properties" method="POST" >
     <div class="row">
       <div class="col-sm-7">
         <div class="form-group">
           <label for="address">Address</label>
-          <input type="text" class="form-control" id="address" aria-describedby="emailHelp">
+          <input name="address" type="text" class="form-control" id="address" aria-describedby="emailHelp"
+            value="<%= typeof address != 'undefined' ? address : '' %>">
         </div>
       </div>
       <div class="col-sm-5">
         <div class="form-group">
           <label for="prop  erty_type">Property Type</label>
-          <select class="form-control" id="property_type">
-            <option>House</option>
-            <option>Apartment</option>
-            <option>Factory</option>
-            <option>Field</option>
-            <option>Plot</option>
+          <select name="property_type" class="form-control" id="property_type">
+            <% propertyTypes.forEach(propertyType => { %>
+              <option value="<%= propertyType._id %>"><%= propertyType.name %></option>
+            <% }) %>
           </select>
         </div>
       </div>
@@ -26,7 +26,8 @@
         <div class="form-group">
           <label for="area">Area</label>
           <div class="input-group">
-            <input type="text" class="form-control" aria-describedby="basic-addon2">
+            <input name="area" type="text" class="form-control" aria-describedby="basic-addon2"
+              value="<%= typeof area != 'undefined' ? area : '' %>">
             <div class="input-group-append">
               <span class="input-group-text" id="basic-addon2">&#x33A1;</span>
             </div>
@@ -40,7 +41,8 @@
             <div class="input-group-prepend">
               <span class="input-group-text">$</span>
             </div>
-            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+            <input name="price" type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+            value="<%= typeof price != 'undefined' ? price : '' %>">
             <div class="input-group-append">
               <span class="input-group-text">.00</span>
             </div>
@@ -50,7 +52,7 @@
     </div>
     <div class="form-group">
       <label for="description">Description</label>
-      <textarea class="form-control" id="description" rows="2"></textarea>
+      <textarea name="description" class="form-control" id="description" rows="2"><%= typeof address != 'undefined' ? address : '' %></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>

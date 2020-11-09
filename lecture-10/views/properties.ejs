@@ -4,19 +4,9 @@
     <div class="card mt-5" style="width: 48rem; margin: auto;">
       <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
       <div class="card-body">
-        <div class="row">
-          <div class="col-6">
-            <h5 class="card-title"><%= property.address %></h5>
-          </div>
-          <div class="col-6 text-right">
-            <span>Published by: <a href="#"><%= property.user.first_name + ' ' + property.user.last_name %></a></span>
-          </div>
-        </div>
-        <span class="card-title">Property type: <%= property.property_type.name %></span><br>
-        <span class="card-title">Price: $<%= property.price %></span><br>
-        <span class="card-title">Area: $<%= property.area %>m2</span><br>
-        <span class="card-text"><%= property.description %></span>
-        <hr>
+        <h5 class="card-title"><%= property.address %></h5>
+        <span class="card-title">$<%= property.price %>, <%= property.area %>m2</span>
+        <p class="card-text"><%= property.description %></p>
         <div>
           <a href="#" class="btn" style="font-size: 30px;"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
           <a href="#" class="btn" style="font-size: 30px; color: red;"><i class="fa fa-heart" aria-hidden="true"></i></a>

@@ -4,13 +4,18 @@ const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 const { ensureAuthenticated, redirectAuthenticated } = require('../config/auth')
+const PropertyType = require('../models/PropertyType')
+const Property = require('../models/Property')
 
 router
-      .get('/', ensureAuthenticated, (req, res) => {
-        res.render('index', { title: 'Express' });
+      .get('/', ensureAuthenticated, async (req, res) => {
+        const properties = await Property.find().populate('user').populate('property_type')
+        console.log(properties)
+        res.render('index', { user: req.user, properties: properties })
       })
-      .get('/add', ensureAuthenticated, (req, res) => {
-        res.render('add');
+      .get('/add', ensureAuthenticated, async (req, res) => {
+        const propertyTypes = await PropertyType.find()
+        res.render('add', { user: req.user, propertyTypes: propertyTypes })
       })
       .get('/login', redirectAuthenticated, (req, res) => {
         res.render('login')
